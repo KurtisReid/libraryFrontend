@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Book vieweer</h1>
+    
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Author</th><th>Avalible</th></tr>
+        </thead>
+        <tbody id="bookTableBody">
+            <tr><td>101</td><td>Wurter heighfts</td><td>hearry</td><td>yes</td></tr>
+            <tr><td>202</td><td>shaker heighfts</td><td>potter</td><td>no</td></tr>
+        </tbody>
+    </table>
+</body>
+
+<script>
+
+    const bookTableBody = document.getElementById("bookTableBody");
+    // fetching the data is a seperate function from rendering the data
+
+    async function getBooks()
+    {
+        const httpResponse = await fetch("https://d6d4-2603-301f-1625-c000-ede3-8275-d0c3-fe31.ngrok.io/books");
+        const books = await httpResponse.json();
+        return books;
+
+    }
+
+    function renderBookTable(books)
+    {
+        consttestBooks = await getBooks(); // make sure you await any async functions you call
+        //const testBooks = [{"id":2,"title":"To Kill a mockingbird","author":"Harper Lee","returnDate":100},{"id":3,"title":"In Cold Blood","author":"Truman Capote","returnDate":0},{"id":4,"title":"Fellowship of the ring","author":"J.R.R Tolkien","returnDate":0},{"id":5,"title":"Kite Runner 2: Electric Boogaloo","author":"Khaled Hosseini","returnDate":0},{"id":6,"title":"Kite Runner 2: Electric Boogaloo","author":"Khaled Hosseini","returnDate":0}];
+
+
+        for (const book of testBooks)
+        {
+            const bookRow = document.createElement("tr");
+
+            const bookIdData = document.createElement("td");
+            bookIdData.innerText = book.id;
+
+            const bookTitleData = document.createElement("td");
+            bookTitleData.innerText = book.title;
+
+            const bookAuthorData = document.createElement("td");
+            bookAuthorData.innerText = book.author;
+
+            const bookAvalibleData = document.createElement("td");
+            bookAvalibleData.innerText = book.returnDate === 0 ? "yes" : "no";
+
+            bookRow.appendChild(bookIdData);
+            bookRow.appendChild(bookTitleData);
+            bookRow.appendChild(bookAuthorData);
+            bookRow.appendChild(bookAvalibleData);
+
+            bookTableBody.appendChild(bookRow);
+
+        }
+
+
+    }
+
+    renderBookTable();
+
+</script>
+</html>
